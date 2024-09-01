@@ -3,13 +3,13 @@ ReadMe:
 Title: Shrinking in response to heat stress and social status aids survival in anemonefish 
 Authors: "Melissa Versteeg, Chancey MacDonald, Morgan Bennett-Smith, Peter Buston, Theresa Rueger"
 
-[Access this dataset on Github](Dataset DOI link)
+[Access this dataset on Github](https://github.com/melissa-versteeg/Anemonefish-shrinking)
 
 The dataset contain the data files underlying clown anemonefish shrinking (PercentChange_Versteeg_etal_2024 data file),
-shrinking of rank 2 males in response to size ratios (Rank2Shrinking_Versteeg_etal_2024 data file), as well as the overall 
+shrinking in response to size ratios (R1andR2Shrinking_Versteeg_etal_2024 data file), as well as the overall 
 survival of individual anemonefish in response to environmental and social factors Survival_Versteeg_etal_2024 data file).
 
-The dataset from which temperatures were projected is also included ()
+The dataset from which temperatures were projected is also included (ARIMA_Versteeg_etal_2024 data file)
 
 We have also included the code for the Bayesian models of thermal stress, social factors, growth patterns, size ratios and suvival probabilities. The code includes their respective model fit checks and plots. 
 
@@ -18,11 +18,11 @@ Data was collected over five lunar cycles, spanning February - August 2023
 
 
 Description of the data and file structure:
-Each dataset is available as a separate excel workbook. Data observations are presented in tab 1 ("Data") and variable descriptions and measurement units are found in tab 2 ("Variables").
+Each dataset is available as a separate excel workbook and csv file. Data observations are presented in tab 1 ("Data") and variable descriptions and measurement units are found in tab 2 ("Variables").
 
 - Shrinking of clown anemonefish ("PercentChange_Versteeg_etal_2024.xlsx")
+
 Variables include:
-  
 FishID - Individual fish identifier
 GroupID - Unique identifier of individual host anemone habitat
 Rank - Social status of individual within a breeding pair
@@ -37,10 +37,11 @@ Max_Temp_LC - Maximum in temperature over a lunar month
 Dev_Temp_LC_INIT - Range in temperature over the previous lunar month
 M_Temp_LC_INIT - Mean in temperature over the previous lunar month
 Max_Temp_LC_INIT - Maximum in temperature over the previous lunar month
+Shrink - Binary variable to indicate whether a shrinking event occurred
 
-- Shrinking of rank 2 in response to size ratios rank 2: rank 1 ("Rank2Shrinking_Versteeg_etal_2024.xlsx")
+- Shrinking in response to size ratios rank 2: rank 1 ("R1andR2Shrinking_Versteeg_etal_2024.xlsx")
+
 Variables include:
-  
 FishID - Individual fish identifier
 GroupID - Unique identifier of individual host anemone habitat
 Rank - Social status of individual within a breeding pair
@@ -50,11 +51,13 @@ Init_TL - Initial total length of the individual (the TL at the start of a lunar
 Diff_TL - Absolute difference in total length from one lunar month to the next
 Perc_change_TL - Percent change in total length of an individual from one lunar month to the next
 R2_Shrink - Binary variable to indicate shrinking of rank 2 at the end of a lunar month
+R1_Shrink - Binary variable to indicate shrinking of rank 1 at the end of a lunar month
+Shrinking - Binary variable to indicate shrinking of an individual at the end of a lunar month
 Size_R2R1_Initial - Size ratio of the rank 2 to rank 1 at the start of a lunar month
 
 - Survival of clown anemonefish ("Survival_Versteeg_etal_2024.xlsx")
+
 Variables include:
-  
 GroupID -	Unique identifier of individual host anemone habitat
 Rank -	Social status of individual within a breeding pair
 LC_Adj -	Lunar month
@@ -68,8 +71,8 @@ TimeTo_Event -	Number of days until event occurred or study period ended
 Event_Died	- Binary variable indicating whether mortality occurred
 
 - Temperature forecasting and hindcasting ("ARIMA_Versteeg_etal_2024.xlsx")
-Variables include:
 
+Variables include:
 GroupID -	Unique identifier of individual host anemone habitat
 LC_Adj -	Lunar month
 Dev_Temp_LC -	Range in temperature over a lunar month
@@ -81,7 +84,9 @@ Max_Temp_LC_INIT -	Maximum in temperature over the previous lunar month
 
 
 -R code for all included analyses ("Anemonefish shrinking_code.R")
-Anemonefish shrinking_code has the following sections, with annotation, data manipulation, model code and effect extractions and comparisons. Layout includes:
+Anemonefish shrinking_code has the following sections, with annotation, data manipulation, model code and effect extractions and comparisons. 
+
+Layout includes:
 Section 1: Libraries - With session and package information.
 Section 2: Data sets, transformations, subsetting, and data projections
 Section 3: Model results, plots, model fit, and effect extractions
@@ -89,10 +94,30 @@ Section 3: Model results, plots, model fit, and effect extractions
       Result 2: Clown anemonefish growth and shrinking has different patterns
       Result 3a: Thermal stress predictors of change in body length of clown anemonefish
       Result 3b: Shrinking in response to thermal stress and social rank
-      Result 4: Rank 2 shrinking to avoid social conflict
+      Result 4: Shrinking to avoid social conflict
       Result 5a: Survival in response to thermal stress
       Result 5b: Survival in response to initial size of clown anemonefish
       Result 5c: Survival in response to social rank of clown anemonefish
       Result 5d: Survival in response to shrinking occuring for both individuals within a breeding pair
       Result 5e: Survival in response to growth patterns of clown anemonefish
 Section 4: Plots
+      Figure panel 1: Change in body length and growth patterns of clown anemonefish.
+      Fig1a: The distribution of percent body length changes of individual rank 1 and rank 2  clown anemonefish.
+      Fig1b: The proportion of rank 1 and rank 2 clown anemonefish using each of three different types of growth patterns.
+      Fig1c: The percent change in total length modelled in relation to initial total length of fish for rank 1.
+      Fig1d: The percent change in total length modelled in relation to initial total length of fish for rank 2.
+      Figure panel 2: Change in body length of clown anemonefish in relation to thermal stress exposure.
+      Fig2a: The percentage change in total length fitted against temperature exposure in the lunar month of length measurements for rank 1 and rank 2.
+      Fig2b: The distribution of the corresponding slope estimates for each rank, for current thermal stress model.
+      Fig2c: The distribution of the corresponding slope contrasts between ranks for current thermal stress model.
+      Fig2d: The percentage change in total length was fitted against temperature exposure in the preceding lunar month.
+      Fig2e: The distribution of the corresponding slope estimates for each rank, for preceding thermal stress model.
+      Fig2f: The distribution of the corresponding slope contrasts between ranks for preceding thermal stress model.
+      Figure panel 3: Shrinking likelihood in response to size ratio.
+      Fig 3a: The likelihood of shrinking was fitted against size ratios of rank 2 to rank 1 at the start of the lunar month.
+      Fig 3b: slope estimates
+      Fig 3c: contrasts
+      Figure panel 4: Survival of clown anemonefish.
+      Fig4a: Kaplan-Meier survival curves for temperature stress.
+      Fig4b: Kaplan-Meier survival curves for social factors.
+      Fig4c: Kaplan-Meier survival curves for growth patterns.
